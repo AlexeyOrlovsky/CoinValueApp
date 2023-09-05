@@ -55,6 +55,32 @@ class HomeViewController: UIViewController {
         return textField
     }()
     
+    let containerIHaveCurrency: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let iHaveCurrency: UILabel = {
+        let label = UILabel()
+        label.text = "USD"
+        return label
+    }()
+    
+    let containerIWantCurrency: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let iWantCurrency: UILabel = {
+        let label = UILabel()
+        label.text = "UAH"
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,8 +105,15 @@ class HomeViewController: UIViewController {
         view.addSubview(converterContainer)
         converterContainer.addSubview(titleFieldHave)
         converterContainer.addSubview(quantitativelyHave)
+        
+        converterContainer.addSubview(containerIHaveCurrency)
+        containerIHaveCurrency.addSubview(iHaveCurrency)
+        
         converterContainer.addSubview(titleFieldGet)
         converterContainer.addSubview(quantitativelyGet)
+        
+        converterContainer.addSubview(containerIWantCurrency)
+        containerIWantCurrency.addSubview(iWantCurrency)
         
         quantitativelyHave.addTarget(self, action: #selector(currencyConversionHave), for: .editingChanged)
         quantitativelyGet.addTarget(self, action: #selector(currencyConversionGet), for: .editingChanged)
@@ -118,6 +151,17 @@ class HomeViewController: UIViewController {
             make.width.equalTo(300)
         }
         
+        containerIHaveCurrency.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(20)
+            make.centerY.equalTo(quantitativelyHave.snp.centerY)
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
+        
+        iHaveCurrency.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         titleFieldGet.snp.makeConstraints { make in
             make.top.equalTo(quantitativelyHave.snp.bottom).offset(20)
             make.left.equalToSuperview().inset(20)
@@ -127,6 +171,17 @@ class HomeViewController: UIViewController {
             make.top.equalTo(titleFieldGet.snp.bottom)
             make.left.equalToSuperview().inset(20)
             make.width.equalTo(300)
+        }
+        
+        containerIWantCurrency.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(20)
+            make.centerY.equalTo(quantitativelyGet.snp.centerY)
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
+        
+        iWantCurrency.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
         tableView.snp.makeConstraints { make in
@@ -218,7 +273,7 @@ extension HomeViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
         let newLength = text.count + string.count - range.length
-        return newLength <= 10
+        return newLength <= 8
     }
 }
 
