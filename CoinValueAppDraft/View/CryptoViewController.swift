@@ -16,6 +16,7 @@ class CryptoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         setupAddSubview()
         setupTableView()
         seetupViewDidLoad()
